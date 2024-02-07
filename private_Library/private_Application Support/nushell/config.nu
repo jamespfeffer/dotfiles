@@ -3,7 +3,7 @@
 # version = "0.89.0"
 
 
- source "/Users/james/Library/Application Support/nushell/init.nu"
+ source "/Users/james/Library/Application Support/nushell/completers.nu"
 
 let posh_dir = (/usr/local/bin/brew --prefix oh-my-posh | str trim)
 let posh_theme = $'($posh_dir)/themes'
