@@ -13,16 +13,16 @@ end
 -- This is where you actually apply your config choices
 
 -- For example, changing the color scheme:
---config.color_scheme = 'Solarized (light) (terminal.sexy)'
+config.color_scheme = 'Solarized (light) (terminal.sexy)'
 --config.color_scheme = 'Trim Yer Beard (terminal.sexy)'
-config.color_scheme = 'Monokai (light) (terminal.sexy)'
+--config.color_scheme = 'Monokai (light) (terminal.sexy)'
 --config.color_scheme = 'Mocha (light) (terminal.sexy)'
 --config.color_scheme = 'Gruvbox light, soft (base16)'
 --config.color_scheme = 'Catppuccin Latte'
 --config.color_scheme = 'matrix'
 --config.color_scheme = 'Mellow Purple (base16)'
 --config.color_scheme = 'Morada (Gogh)'
-config.color_scheme = 'Monokai Pro Ristretto (Gogh)'
+--config.color_scheme = 'Monokai Pro Ristretto (Gogh)'
 
 
 -- Set up fonts

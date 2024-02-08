@@ -20,22 +20,46 @@ let carapace_completer = {|spans|
   | from json
 }
 
-# mut current = (($env | default {} config).config | default {} completions)
-# $current.completions = ($current.completions | default {} external)
-# $current.completions.external = ($current.completions.external
-# | default true enable
-# | default $carapace_completer completer)
+let  current = (($env | default {} config).config | default {} completions)
+#$current.completions = ($current.completions | default {} external)
+#$current.completions.external = ($current.completions.external
+#| default true enable
+#| default $carapace_completer completer)
 
 # $env.config = $current
 
+#carapace-bridge _carapace nushell '' zsh ...nvim ~/.loc |from json|each {|x|let cols = $x|columns;  let col = $cols.0; let y = $x|get $col | str trim; {$col: $y}}
+
+
 let zsh_completer = {|spans|
- carapace-bridge _carapace nushell '' zsh ...$spans | from json
+ 			carapace-bridge _carapace nushell '' zsh ...$spans 
+			|from json 
+			| uniq 
+			|each {|x|let cols = $x|columns;  
+				let col = $cols.0; 
+				let y = $x|get $col | str trim; 
+				{$col: $y}
+				}
 }
+
+#let fish_completer = {|spans|
+#    fish --command $'complete "--do-complete=($spans | str join " ")"'
+#    | $"value(char tab)description(char newline)" + $in
+#    | from tsv --flexible --no-infer
+#}
+
+let fish_completer = {|spans|
+	carapace-bridge _carapace nushell '' fish ...$spans | from json
+}
+
+
 
 let multiple_completers = {|spans|
     match $spans.0 {
 	git => $carapace_completer
-	_  => $zsh_completer
+	brew => $zsh_completer
+	flac => $zsh_completer
+	_  => $carapace_completer
     } | do $in $spans
 }
 
@@ -47,7 +71,6 @@ $env.config = {
       completer: $multiple_completers    }
   }
 
-  edit_mode: vi
 
 
 
