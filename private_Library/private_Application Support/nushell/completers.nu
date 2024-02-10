@@ -30,17 +30,22 @@ let  current = (($env | default {} config).config | default {} completions)
 
 #carapace-bridge _carapace nushell '' zsh ...nvim ~/.loc |from json|each {|x|let cols = $x|columns;  let col = $cols.0; let y = $x|get $col | str trim; {$col: $y}}
 
-
 let zsh_completer = {|spans|
- 			carapace-bridge _carapace nushell '' zsh ...$spans 
-			|from json 
-			| uniq 
-			|each {|x|let cols = $x|columns;  
-				let col = $cols.0; 
-				let y = $x|get $col | str trim; 
-				{$col: $y}
-				}
+ carapace-bridge _carapace nushell '' zsh ...$spans | from json
 }
+
+
+
+#let zsh_completer = {|spans|
+# 			carapace-bridge _carapace nushell '' zsh ...$spans 
+#			|from json 
+#			| uniq 
+#			|each {|x|let cols = $x|columns;  
+#				let col = $cols.0; 
+#				let y = $x|get $col | str trim; 
+#				{$col: $y}
+#				}
+#}
 
 #let fish_completer = {|spans|
 #    fish --command $'complete "--do-complete=($spans | str join " ")"'
@@ -59,6 +64,7 @@ let multiple_completers = {|spans|
 	git => $carapace_completer
 	brew => $zsh_completer
 	flac => $zsh_completer
+	chezmoi => $zsh_completer
 	_  => $current
     } | do $in $spans
 }
