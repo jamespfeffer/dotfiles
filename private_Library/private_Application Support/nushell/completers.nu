@@ -59,7 +59,7 @@ let multiple_completers = {|spans|
 	git => $carapace_completer
 	brew => $zsh_completer
 	flac => $zsh_completer
-	_  => $carapace_completer
+	_  => $current
     } | do $in $spans
 }
 

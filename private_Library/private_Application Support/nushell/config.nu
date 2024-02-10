@@ -5,15 +5,23 @@
 
  source "/Users/james/Library/Application Support/nushell/completers.nu"
 
+
+$env.PROMPT_COMMAND_RIGHT = ""
 let posh_dir = (/usr/local/bin/brew --prefix oh-my-posh | str trim)
 let posh_theme = $'($posh_dir)/themes'
 
 # Change the theme names to: zash/space/robbyrussel/powerline/powerlevel10k_lean/
 # material/half-life/lambda Or double lines theme: amro/pure/spaceship, etc.
 # For more [Themes demo](https://ohmyposh.dev/docs/themes)
-$env.PROMPT_COMMAND = { || /usr/local/bin/oh-my-posh prompt print primary --config $'($posh_theme)/cloud-native-azure.omp.json' }
+#$env.PROMPT_COMMAND = { || /usr/local/bin/oh-my-posh prompt print primary --config $'($posh_theme)/unicorn.omp.json' }
+$env.PROMPT_COMMAND = { || /usr/local/bin/oh-my-posh prompt print primary --config '~/.config/oh-my-posh/jzp-cloud-native-azure.omp.yaml' }
+
+
+
+
+
 # Optional
- $env.PROMPT_INDICATOR = $"(ansi y)$> (ansi reset)"
+# $env.PROMPT_INDICATOR = $"(ansi y)$> (ansi reset)"
 
 # For more information on defining custom themes, see
 # https://www.nushell.sh/book/coloring_and_theming.html
@@ -234,8 +242,8 @@ $env.config = {
 
     cursor_shape: {
         emacs: line # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (line is the default)
-        vi_insert: block # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (block is the default)
-        vi_normal: underscore # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (underscore is the default)
+        vi_insert: line # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (block is the default)
+        vi_normal: block # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (underscore is the default)
     }
 
     color_config: $light_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
