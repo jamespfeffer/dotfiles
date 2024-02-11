@@ -2,12 +2,20 @@
 blocks:
   - alignment: left
     segments:
-      - background: "#285c62"
-        foreground: "#ffffff"
+      - type: shell
+        style: diamond
         leading_diamond: 
-        style:  diamond
+        foreground: "#ffffff"
+        background: "#1f4340"
+        properties:
+          mapped_shell_names:
+            zsh: 󰬡
+            nu: 󰬕
+      - background: "#27595d"
+        foreground: "#ffffff"
+        style:  powerline
         template: " {{ if .SSHSession }} {{ end }}{{ .UserName }}@{{ .HostName }} "
-        #trailing_diamond: 
+        powerline_symbol: 
         type: session
       - background: "#28939d"
         foreground: "#ffffff"
@@ -43,7 +51,10 @@ blocks:
         properties:
           always_enabled: true
         style: powerline
-        template: "  {{ if gt (atoi .Env.LAST_EXIT_CODE) 0}} {{ reason (atoi .Env.LAST_EXIT_CODE) }}{{ else }}  {{ end }} "
+        template: " {{ if eq .Shell \"zsh\" }}{{ if eq .Code 0 }}  {{ else }}   {{ reason .Code }}{{ end }}
+                    {{ else }}{{ if eq (atoi .Env.LAST_EXIT_CODE) 0}}  {{ else }}   {{ reason (atoi .Env.LAST_EXIT_CODE) }}{{ end }} 
+                    {{ end }}"
+
         powerline_symbol: 
         type: status
       - type: text
@@ -52,12 +63,17 @@ blocks:
         foreground: "#000000"
         background: "#ffe600"
         template: "{{with .Env.CHEZMOI }} 󱂶 {{ end     }}"
-
+      - type: text
+        style: powerline
+        powerline_symbol: 
+        foreground: "#000000"
+        background: "#ffe600"
     type: prompt
   - alignment: right
     segments:
+
       - background: "#2e9599"
-        foreground: "#111111"
+        foreground: "#ffffff"
         invert_powerline: true
         powerline_symbol: 
         style: powerline
