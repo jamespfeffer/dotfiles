@@ -1,6 +1,6 @@
 # Nushell Config File
 #
-# version = "0.89.0"
+# version = "0.90.2"
 
 
  source "/Users/james/Library/Application Support/nushell/completers.nu"
@@ -159,7 +159,7 @@ let light_theme = {
 
 # External completer example
 # let carapace_completer = {|spans|
-#     carapace $spans.0 nushell $spans | from json
+#     carapace $spans.0 nushell ...$spans | from json
 # }
 
 # The default config record. This is where much of your global configuration is setup.
@@ -176,7 +176,7 @@ $env.config = {
     }
 
     table: {
-        mode: rounded # rounded basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
+        mode: rounded # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
         index_mode: always # "always" show indexes, "never" show indexes, "auto" = show indexes when a table has "index" column
         show_empty: true # show 'empty list' and 'empty record' placeholders for command output
         padding: { left: 1, right: 1 } # a left right padding of each column in a table
@@ -233,6 +233,7 @@ $env.config = {
             max_results: 100 # setting it lower can improve completion performance at the cost of omitting some options
             completer: $multiple_completers # check 'carapace_completer' above as an example
         }
+        
     }
 
     filesize: {
@@ -259,6 +260,8 @@ $env.config = {
     use_kitty_protocol: false # enables keyboard enhancement protocol implemented by kitty console, only if your terminal support this.
     highlight_resolved_externals: false # true enables highlighting of external commands in the repl resolved by which.
 
+    plugins: {} # Per-plugin configuration. See https://www.nushell.sh/contributor-book/plugins.html#configuration.
+
     hooks: {
         pre_prompt: [{ null }] # run before the prompt is shown
         pre_execution: [{ null }] # run before the repl input is run
@@ -284,8 +287,43 @@ $env.config = {
             }
             style: {
                 text: green
-                selected_text: green_reverse
+                selected_text: {attr: r}
                 description_text: yellow
+                match_text: {attr: u}
+                selected_match_text: {attr: ur}
+            }
+        }
+        {
+            name: ide_completion_menu
+            only_buffer_difference: false
+            marker: "| "
+            type: {
+                layout: ide
+                min_completion_width: 0,
+                max_completion_width: 50,
+                max_completion_height: 10, # will be limited by the available lines in the terminal
+                padding: 0,
+                border: true,
+                cursor_offset: 0,
+                description_mode: "prefer_right"
+                min_description_width: 0
+                max_description_width: 50
+                max_description_height: 10
+                description_offset: 1
+                # If true, the cursor pos will be corrected, so the suggestions match up with the typed text
+                #
+                # C:\> str
+                #      str join
+                #      str trim
+                #      str split
+                correct_cursor_pos: false
+            }
+            style: {
+                text: green
+                selected_text: {attr: r}
+                description_text: yellow
+                match_text: {attr: u}
+                selected_match_text: {attr: ur}
             }
         }
         {
@@ -331,6 +369,19 @@ $env.config = {
             event: {
                 until: [
                     { send: menu name: completion_menu }
+                    { send: menunext }
+                    { edit: complete }
+                ]
+            }
+        }
+        {
+            name: ide_completion_menu
+            modifier: control
+            keycode: char_n
+            mode: [emacs vi_normal vi_insert]
+            event: {
+                until: [
+                    { send: menu name: ide_completion_menu }
                     { send: menunext }
                     { edit: complete }
                 ]
@@ -778,6 +829,34 @@ $env.config = {
             keycode: char_c
             mode: emacs
             event: {edit: capitalizechar}
+        }
+        {
+            name: copy_selection
+            modifier: control_shift
+            keycode: char_c
+            mode: emacs
+            event: { edit: copyselection }
+        }
+        {
+            name: cut_selection
+            modifier: control_shift
+            keycode: char_x
+            mode: emacs
+            event: { edit: cutselection }
+        }
+        {
+            name: select_all
+            modifier: control_shift
+            keycode: char_a
+            mode: emacs
+            event: { edit: selectall }
+        }
+        {
+            name: paste
+            modifier: control_shift
+            keycode: char_v
+            mode: emacs
+            event: { edit: pastecutbufferbefore }
         }
     ]
 }

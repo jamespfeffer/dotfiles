@@ -11,6 +11,7 @@ blocks:
           mapped_shell_names:
             zsh: 󰬡
             nu: 󰬕
+            fish: 󰈺
       - background: "#27595d"
         foreground: "#ffffff"
         style:  powerline
@@ -89,7 +90,7 @@ blocks:
           api_key: 58d395648ae985745e5632ddf810e624
           location: GDAŃSK, PL 
           units: metric
-          http_timeout: 2000
+          http_timeout: 200
           cache_timeout: 10
         type: owm
     type: prompt
