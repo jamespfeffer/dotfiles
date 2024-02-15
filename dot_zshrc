@@ -1,5 +1,6 @@
 # autoload -Uz compinit && compinit
 export PATH="/usr/local/sbin:$PATH"
+export EDITOR=nvim
 
 [ -f "/Users/james/.ghcup/env" ] && source "/Users/james/.ghcup/env" # ghcup-env
 
