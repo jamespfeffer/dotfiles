@@ -87,3 +87,7 @@ $env.NU_PLUGIN_DIRS = [
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
+
+
+# Write out an initialization script for oh-my-posh
+oh-my-posh init nu --config ~/.config/oh-my-posh/jzp-turquoise.yaml --print | save ./oh-my-posh.nu --force

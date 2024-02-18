@@ -10,6 +10,9 @@ if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 
+-- Spawn a fish shell in login mode
+config.default_prog = { '/usr/local/bin/fish', '-l' }
+
 -- This is where you actually apply your config choices
 
 -- For example, changing the color scheme:

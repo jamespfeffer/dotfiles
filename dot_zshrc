@@ -15,5 +15,5 @@ autoload -Uz compinit && compinit
 source <(carapace _carapace)
 
 if [ $TERM_PROGRAM != "Apple_Terminal" ]; then
-  eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/jzp-cloud-native-azure.omp.yaml)"
+  eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/jzp-turquoise.yaml)"
 fi
